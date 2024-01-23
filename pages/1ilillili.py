@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 from datetime import datetime
 
 import streamlit as st
@@ -11,25 +12,23 @@ from customs.custom import css
 st.markdown(css,unsafe_allow_html=True)
 #RM한도 적용 날짜
 now = datetime.now().strftime('%Y년 %m월')
+now = str(now)
 #캐싱-info DB 10분마다 갱싱
 @st.cache_data(ttl=600)
 def data():
     DF = pd.read_json('C:\\Users\\USER\\ve_1\\proj_web\\db\\info_.json',
-                    orient='records',
-                    dtype={'mid':str,'info':str,'char':str})
+                      orient='records',
+                      dtype={'mid':str,'info':str,'char':str})
     return DF
 #캐싱-RM한도증액 가맹점 5시간마다 갱신
 @st.cache_data(ttl=18000)
 def RM():
-    RM = pd.read_json('C:\\Users\\USER\\ve_1\\proj_web\\db\\RM_.json',
-                        orient='records',
-                        dtype={'mid':str,'name':str,'month':str})
-    RM_ = RM[RM['month']==now]
-    return RM_[["mid","name"]]
+    with open('C:\\Users\\USER\\ve_1\\proj_web\\db\\RM_.json','r',encoding="UTF-8") as f:
+        RM = json.load(f)
+    return RM
 #실시간 알람 불러오기
-A_df = pd.read_json("C:\\Users\\USER\\ve_1\\proj_web\\db\\Alarm_.json",
-                    orient='records',
-                    dtype={'Alarm':str,'mid':str})
+with open('C:\\Users\\USER\\ve_1\\proj_web\\db\\Alarm_.json','r',encoding="UTF-8") as f:
+    A_df = json.load(f)
 #자동 새로고침 코드
 count = st_autorefresh(interval=2000,
                         limit=None,
@@ -57,41 +56,40 @@ def H_page():
                             closefd=True)
                 st.write(notice.read())
                 notice.close()
-        Al = A_df.loc[::-1].head(10)
-        call = pd.merge(Al,data(),how='left',left_on='mid',right_on='mid')
-        st.write(call['Alarm'][0])
-        st.write(call['mid'][0])
+        st.write(A_df[-1]['Alarm'])
+        st.write(A_df[-1]['mid'])
         st.markdown(':blue[**정보**]')
-        st.write(call['info'][0])
+        st.write(data().loc[data()['mid']==A_df[-1]['mid']]['info'].to_list()[0])
         st.markdown(':blue[**담당자**]')
-        st.write(call['char'][0])
+        st.write(data().loc[data()['mid']==A_df[-1]['mid']]['char'].to_list()[0])
         st.divider()
-        st.write(call['Alarm'][1])
-        st.write(call['mid'][1])
+        st.write(A_df[-2]['Alarm'])
+        st.write(A_df[-2]['mid'])
         st.markdown(':blue[**정보**]')
-        st.write(call['info'][1])
+        st.write(data().loc[data()['mid']==A_df[-2]['mid']]['info'].to_list()[0])
         st.markdown(':blue[**담당자**]')
-        st.write(call['char'][1])
+        st.write(data().loc[data()['mid']==A_df[-2]['mid']]['char'].to_list()[0])
         st.divider()
-        st.write(call['Alarm'][2])
-        st.write(call['mid'][2])
+        st.write(A_df[-3]['Alarm'])
+        st.write(A_df[-3]['mid'])
         st.markdown(':blue[**정보**]')
-        st.write(call['info'][2])
+        st.write(data().loc[data()['mid']==A_df[-3]['mid']]['info'].to_list()[0])
         st.markdown(':blue[**담당자**]')
-        st.write(call['char'][2])
+        st.write(data().loc[data()['mid']==A_df[-3]['mid']]['char'].to_list()[0])
         st.divider()
-        st.write(call['Alarm'][3])
-        st.write(call['mid'][3])
+        st.write(A_df[-4]['Alarm'])
+        st.write(A_df[-4]['mid'])
         st.markdown(':blue[**정보**]')
-        st.write(call['info'][3])
+        st.write(data().loc[data()['mid']==A_df[-4]['mid']]['info'].to_list()[0])
         st.markdown(':blue[**담당자**]')
-        st.write(call['char'][3])
+        st.write(data().loc[data()['mid']==A_df[-4]['mid']]['char'].to_list()[0])
         st.divider()
-        st.write(call['Alarm'][4])
-        st.write(call['mid'][4])
+        st.write(A_df[-5]['Alarm'])
+        st.write(A_df[-5]['mid'])
         st.markdown(':blue[**정보**]')
-        st.write(call['info'][4])
+        st.write(data().loc[data()['mid']==A_df[-5]['mid']]['info'].to_list()[0])
         st.markdown(':blue[**담당자**]')
-        st.write(call['char'][4])
+        st.write(data().loc[data()['mid']==A_df[-5]['mid']]['char'].to_list()[0])
+        st.divider()
 
 H_page()
