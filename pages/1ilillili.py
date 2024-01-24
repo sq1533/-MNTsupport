@@ -12,7 +12,6 @@ from customs.custom import css
 st.markdown(css,unsafe_allow_html=True)
 #RM한도 적용 날짜
 now = datetime.now().strftime('%Y년 %m월')
-now = str(now)
 #캐싱-info DB 10분마다 갱싱
 @st.cache_data(ttl=600)
 def data():
@@ -23,9 +22,11 @@ def data():
 #캐싱-RM한도증액 가맹점 5시간마다 갱신
 @st.cache_data(ttl=18000)
 def RM():
-    with open('C:\\Users\\USER\\ve_1\\proj_web\\db\\RM_.json','r',encoding="UTF-8") as f:
-        RM = json.load(f)
-    return RM
+    RM = pd.read_json('C:\\Users\\USER\\ve_1\\proj_web\\db\\RM_.json',
+                      orient='records',
+                      dtype={'mid':str,'name':str,'month':str})
+    RM_ = RM[RM['month']==now]
+    return RM_
 #실시간 알람 불러오기
 with open('C:\\Users\\USER\\ve_1\\proj_web\\db\\Alarm_.json','r',encoding="UTF-8") as f:
     A_df = json.load(f)
@@ -90,6 +91,41 @@ def H_page():
         st.write(data().loc[data()['mid']==A_df[-5]['mid']]['info'].to_list()[0])
         st.markdown(':blue[**담당자**]')
         st.write(data().loc[data()['mid']==A_df[-5]['mid']]['char'].to_list()[0])
+        st.divider()
+        st.write(A_df[-6]['Alarm'])
+        st.write(A_df[-6]['mid'])
+        st.markdown(':blue[**정보**]')
+        st.write(data().loc[data()['mid']==A_df[-6]['mid']]['info'].to_list()[0])
+        st.markdown(':blue[**담당자**]')
+        st.write(data().loc[data()['mid']==A_df[-6]['mid']]['char'].to_list()[0])
+        st.divider()
+        st.write(A_df[-7]['Alarm'])
+        st.write(A_df[-7]['mid'])
+        st.markdown(':blue[**정보**]')
+        st.write(data().loc[data()['mid']==A_df[-7]['mid']]['info'].to_list()[0])
+        st.markdown(':blue[**담당자**]')
+        st.write(data().loc[data()['mid']==A_df[-7]['mid']]['char'].to_list()[0])
+        st.divider()
+        st.write(A_df[-8]['Alarm'])
+        st.write(A_df[-8]['mid'])
+        st.markdown(':blue[**정보**]')
+        st.write(data().loc[data()['mid']==A_df[-8]['mid']]['info'].to_list()[0])
+        st.markdown(':blue[**담당자**]')
+        st.write(data().loc[data()['mid']==A_df[-8]['mid']]['char'].to_list()[0])
+        st.divider()
+        st.write(A_df[-9]['Alarm'])
+        st.write(A_df[-9]['mid'])
+        st.markdown(':blue[**정보**]')
+        st.write(data().loc[data()['mid']==A_df[-9]['mid']]['info'].to_list()[0])
+        st.markdown(':blue[**담당자**]')
+        st.write(data().loc[data()['mid']==A_df[-9]['mid']]['char'].to_list()[0])
+        st.divider()
+        st.write(A_df[-10]['Alarm'])
+        st.write(A_df[-10]['mid'])
+        st.markdown(':blue[**정보**]')
+        st.write(data().loc[data()['mid']==A_df[-10]['mid']]['info'].to_list()[0])
+        st.markdown(':blue[**담당자**]')
+        st.write(data().loc[data()['mid']==A_df[-10]['mid']]['char'].to_list()[0])
         st.divider()
 
 H_page()
