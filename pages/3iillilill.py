@@ -1,6 +1,5 @@
 import requests
 import json
-import pandas as pd
 
 import streamlit as st
 from streamlit_extras.row import row
@@ -9,9 +8,10 @@ from streamlit_extras.switch_page_button import switch_page as sp
 from customs.custom import css
 #사이드바 제거
 st.markdown(css, unsafe_allow_html=True)
-DF = pd.read_json('C:\\Users\\USER\\ve_1\\proj_web\\db\\info_.json',
-                orient='records',
-                dtype={'mid':str,'info':str,'char':str})
+#데이터 불러오기
+with open('C:\\Users\\USER\\ve_1\\proj_web\\db\\info_.json','r',encoding="UTF-8") as f:
+    DF = json.load(f)
+look = [i for i in range(len(DF)) if DF[i]['mid']==mid]
 
 url = "http://127.0.0.1:8000/mk_info"
 url_d = "http://127.0.0.1:8000/mk_info_d"
@@ -22,7 +22,6 @@ def change():
 def delete():
     requests.post(url_d,json.dumps(mk_d))
 
-mid_L = DF['mid'].to_list()
 #네비게이터 버튼 'ilillili', 'lliilliill', 'iillilill', 'iillliiilll'
 row_ = row(4, vertical_align="top")
 if row_.button("모니터링", use_container_width=True):
@@ -47,7 +46,7 @@ with tab1:
         }
         btn = st.form_submit_button(label="생성")
         if btn:
-            if mk_info["mid"] not in mid_L:
+            if look == []:
                 create()
                 st.markdown("생성완료")
             else:
@@ -61,7 +60,7 @@ with tab2:
         }
         btn_1 = st.form_submit_button(label="조회")
         if btn_1:
-            if mk["mid"] not in mid_L:
+            if look == []:
                 st.markdown("MID가 존재하지 않습니다.")
     with st.form(key="mk_ch"):
         mid: str = st.text_input("mid",DF[DF["mid"]==mk["mid"]]["mid"].to_string(index=False),max_chars=20)
@@ -74,7 +73,7 @@ with tab2:
         }
         btn_2 = st.form_submit_button(label="수정")
         if btn_2:
-            if mk["mid"] not in mid_L:
+            if look == []:
                 st.markdown("MID가 존재하지 않습니다.")
             else:
                 change()
@@ -87,7 +86,7 @@ with tab3:
         }
         btn = st.form_submit_button(label="삭제")
         if btn:
-            if mk_d["mid"] not in mid_L:
+            if look == []:
                 st.markdown("MID가 존재하지 않습니다.")
             else:
                 delete()
