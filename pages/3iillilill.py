@@ -11,7 +11,6 @@ st.markdown(css, unsafe_allow_html=True)
 #데이터 불러오기
 with open('C:\\Users\\USER\\ve_1\\proj_web\\db\\info_.json','r',encoding="UTF-8") as f:
     DF = json.load(f)
-look = [i for i in range(len(DF)) if DF[i]['mid']==mid]
 
 url = "http://127.0.0.1:8000/mk_info"
 url_d = "http://127.0.0.1:8000/mk_info_d"
@@ -37,16 +36,17 @@ tab1,tab2,tab3 = st.tabs(["생성","수정","삭제"])
 with tab1:
     with st.form(key="mk_info"):
         mid: str = st.text_input("mid", max_chars=20)
-        info: str = st.text_area("info")
-        char: str = st.text_area("char")
+        info: str = st.text_area("정보")
+        char: str = st.text_area("담당자")
         mk_info = {
             "mid":mid,
             "info":info.replace('\n','  \n'),
             "char":char.replace('\n','  \n')
         }
         btn = st.form_submit_button(label="생성")
+        look1 = [i for i in range(len(DF)) if DF[i]['mid']==mk_info['mid']]
         if btn:
-            if look == []:
+            if look1 == []:
                 create()
                 st.markdown("생성완료")
             else:
@@ -59,13 +59,18 @@ with tab2:
             "mid":mid
         }
         btn_1 = st.form_submit_button(label="조회")
+        look2 = [i for i in range(len(DF)) if DF[i]['mid']==mk['mid']]
         if btn_1:
-            if look == []:
+            if look2 == []:
                 st.markdown("MID가 존재하지 않습니다.")
     with st.form(key="mk_ch"):
-        mid: str = st.text_input("mid",DF[DF["mid"]==mk["mid"]]["mid"].to_string(index=False),max_chars=20)
-        info: str = st.text_area("info(수정 전 info는 지워주세요)",DF[DF["mid"]==mk["mid"]]["info"].to_markdown(index=False,tablefmt="plain"),height=250)
-        char: str = st.text_area("char(수정 전 char는 지워주세요)",DF[DF["mid"]==mk["mid"]]["char"].to_markdown(index=False,tablefmt="plain"),height=100)
+        if look2 != []:
+            pass
+        else:
+            look2 = [0]
+        mid: str = st.text_input("mid",DF[look2[0]]['mid'],max_chars=20)
+        info: str = st.text_area("정보",DF[look2[0]]['info'],height=250)
+        char: str = st.text_area("담당자",DF[look2[0]]['char'],height=100)
         mk_ch = {
             "mid":mid,
             "info":info.replace('\n','  \n'),
@@ -73,11 +78,8 @@ with tab2:
         }
         btn_2 = st.form_submit_button(label="수정")
         if btn_2:
-            if look == []:
-                st.markdown("MID가 존재하지 않습니다.")
-            else:
-                change()
-                st.markdown("수정완료")
+            change()
+            st.markdown("수정완료")
 with tab3:
     with st.form(key="mk_d"):
         mid: str = st.text_input("mid", max_chars=20)
@@ -85,8 +87,9 @@ with tab3:
             "mid":mid
         }
         btn = st.form_submit_button(label="삭제")
+        look3 = [i for i in range(len(DF)) if DF[i]['mid']==mk_d['mid']]
         if btn:
-            if look == []:
+            if look3 == []:
                 st.markdown("MID가 존재하지 않습니다.")
             else:
                 delete()
