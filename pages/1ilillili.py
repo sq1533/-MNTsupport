@@ -30,6 +30,11 @@ def RM():
 #실시간 알람 불러오기
 with open('C:\\Users\\USER\\ve_1\\proj_web\\db\\Alarm_.json','r',encoding="UTF-8") as f:
     A_df = json.load(f)
+for i in range(11):
+    if A_df[i]['mid'] not in data()['mid'].to_list():
+        A_df[i]['mid'] = "확인필요"
+    else:
+        pass
 #자동 새로고침 코드
 count = st_autorefresh(interval=2000,
                         limit=None,
