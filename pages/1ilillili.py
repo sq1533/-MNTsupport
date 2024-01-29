@@ -12,8 +12,8 @@ from customs.custom import css
 st.markdown(css,unsafe_allow_html=True)
 #RM한도 적용 날짜
 now = datetime.now().strftime('%Y년 %m월')
-#캐싱-info DB 10분마다 갱싱
-@st.cache_data(ttl=600)
+#캐싱-info DB 60분마다 갱싱
+@st.cache_data(ttl=3600)
 def data():
     DF = pd.read_json('C:\\Users\\USER\\ve_1\\proj_web\\db\\info_.json',
                       orient='records',
@@ -39,6 +39,9 @@ for i in range(11):
 count = st_autorefresh(interval=2000,
                         limit=None,
                         key="refresh")
+#캐싱데이터 지우기
+if datetime.now().strftime('%H:%M:%S') == '15:00:00':
+    st.cache_data.clear()
 #네비게이터 버튼 'ilillili', 'lliilliill', 'iillilill', 'iillliiilll'
 def H_page():
     row_ = row(4, vertical_align="top")
