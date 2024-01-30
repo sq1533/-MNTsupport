@@ -234,4 +234,4 @@ def alarmcheck():
     
 while True:
     alarmcheck()
-    time.sleep(0.05)
+    time.sleep(0.1)
