@@ -12,15 +12,15 @@ from customs.custom import css
 st.markdown(css,unsafe_allow_html=True)
 #RM한도 적용 날짜
 now = datetime.now().strftime('%Y년 %m월')
-#캐싱-info DB 60분마다 갱싱
-@st.cache_data(ttl=3600)
+#캐싱-info DB 12시간마다 갱싱
+@st.cache_data(ttl=43200)
 def data():
     DF = pd.read_json('C:\\Users\\USER\\ve_1\\proj_web\\db\\info_.json',
                       orient='records',
                       dtype={'mid':str,'info':str,'char':str})
     return DF
-#캐싱-RM한도증액 가맹점 5시간마다 갱신
-@st.cache_data(ttl=18000)
+#캐싱-RM한도증액 가맹점 6시간마다 갱신
+@st.cache_data(ttl=21600)
 def RM():
     RM = pd.read_json('C:\\Users\\USER\\ve_1\\proj_web\\db\\RM_.json',
                       orient='records',
