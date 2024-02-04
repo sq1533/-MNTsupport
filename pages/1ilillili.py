@@ -53,18 +53,13 @@ def H_page():
     if row_.button("RM증액 및 공지", use_container_width=True):
         sp("iillliiilll")
     if count:
-        cul1,cul2 = st.columns(2)
-        with cul1:
-            with st.expander(f"{now} RM 한도 증액 가맹점"):
-                st.dataframe(RM())
-        with cul2:
-            with st.expander("은행지연/모계좌"):
-                notice= open("C:\\Users\\USER\\ve_1\\proj_web\\db\\notice.txt",
-                            mode="r",
-                            encoding="utf-8",
-                            closefd=True)
-                st.write(notice.read())
-                notice.close()
+        with st.expander("은행지연/모계좌"):
+            notice= open("C:\\Users\\USER\\ve_1\\proj_web\\db\\notice.txt",
+                        mode="r",
+                        encoding="utf-8",
+                        closefd=True)
+            st.write(notice.read())
+            notice.close()
         st.write(A_df[-1]['Alarm'])
         st.write(A_df[-1]['mid'])
         st.markdown(':blue[**정보**]')

@@ -37,19 +37,3 @@ def delete(data):
     ind = DF[DF['mid']==d['mid']].index
     DF.drop(ind, inplace=True)
     return DF.to_json('C:\\Users\\USER\\ve_1\\proj_web\\db\\info_.json',orient='records',force_ascii=False,indent=4)
-
-def RM(data):
-    wk = pd.read_json('C:\\Users\\USER\\ve_1\\proj_web\\db\\RM_.json',
-                        orient='records',
-                        dtype={'mid':str,'name':str,'month':str})
-    now = datetime.now().strftime('%Y년 %m월')
-    new = {
-        "mid":data['mid'],
-        "name":data['name'],
-        "month":data['month']
-    }
-    new_df = pd.DataFrame(new,index=[0])
-    resurts = pd.concat([wk,new_df],ignore_index=True)
-    ind = resurts[resurts['month'] != now].index
-    resurts.drop(ind,inplace=True)
-    return resurts.to_json('C:\\Users\\USER\\ve_1\\proj_web\\db\\RM_.json',orient='records',force_ascii=False,indent=4)
