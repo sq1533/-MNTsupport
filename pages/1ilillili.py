@@ -50,7 +50,7 @@ def H_page():
         sp("lliilliill")
     if row_.button("DB관리", use_container_width=True):
         sp("iillilill")
-    if row_.button("RM증액 및 공지", use_container_width=True):
+    if row_.button("은행지연/모계좌", use_container_width=True):
         sp("iillliiilll")
     if count:
         with st.expander("은행지연/모계좌"):

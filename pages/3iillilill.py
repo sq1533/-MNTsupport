@@ -28,7 +28,7 @@ if row_.button("모니터링", use_container_width=True):
 if row_.button("조회", use_container_width=True):
     sp("llIIllIIll")
 row_.button("DB관리", use_container_width=True)
-if row_.button("RM증액 및 공지", use_container_width=True):
+if row_.button("은행지연/모계좌", use_container_width=True):
     sp("iilllIIIlll")
 
 tab1,tab2,tab3 = st.tabs(["생성","수정","삭제"])

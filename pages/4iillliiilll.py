@@ -14,7 +14,7 @@ if row_.button("조회", use_container_width=True):
     sp("llIIllIIll")
 if row_.button("DB관리", use_container_width=True):
     sp("IIllIlill")
-row_.button("RM증액 및 공지", use_container_width=True)
+row_.button("은행지연/모계좌", use_container_width=True)
 
 with st.form(key="은행지연/모계좌"):
     with open("C:\\Users\\USER\\ve_1\\proj_web\\db\\notice.txt","r+",encoding="utf-8") as f:

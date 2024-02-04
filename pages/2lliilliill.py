@@ -18,7 +18,7 @@ if row_.button("모니터링", use_container_width=True):
 row_.button("조회", use_container_width=True)
 if row_.button("DB관리", use_container_width=True):
     sp("IIllIlill")
-if row_.button("RM증액 및 공지", use_container_width=True):
+if row_.button("은행지연/모계좌", use_container_width=True):
     sp("iilllIIIlll")
 
 mid = st.text_input("MID조회(입력 후 Enter)")
