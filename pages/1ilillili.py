@@ -36,7 +36,7 @@ for i in range(11):
     else:
         pass
 #자동 새로고침 코드
-count = st_autorefresh(interval=2000,
+count = st_autorefresh(interval=3000,
                         limit=None,
                         key="refresh")
 #캐싱데이터 지우기
@@ -52,13 +52,13 @@ def H_page():
         sp("iillilill")
     if row_.button("RM증액 및 공지", use_container_width=True):
         sp("iillliiilll")
-    if count != 0:
+    if count:
         cul1,cul2 = st.columns(2)
         with cul1:
             with st.expander(f"{now} RM 한도 증액 가맹점"):
                 st.dataframe(RM())
         with cul2:
-            with st.expander("공지"):
+            with st.expander("은행지연/모계좌"):
                 notice= open("C:\\Users\\USER\\ve_1\\proj_web\\db\\notice.txt",
                             mode="r",
                             encoding="utf-8",
