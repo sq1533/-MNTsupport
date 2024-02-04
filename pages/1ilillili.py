@@ -12,15 +12,15 @@ from customs.custom import css
 st.markdown(css,unsafe_allow_html=True)
 #RM한도 적용 날짜
 now = datetime.now().strftime('%Y년 %m월')
-#캐싱-info DB 60분마다 갱싱
-@st.cache_data(ttl=3600)
+#캐싱-info DB 12시간마다 갱싱
+@st.cache_data(ttl=43200)
 def data():
     DF = pd.read_json('C:\\Users\\USER\\ve_1\\proj_web\\db\\info_.json',
                       orient='records',
                       dtype={'mid':str,'info':str,'char':str})
     return DF
-#캐싱-RM한도증액 가맹점 5시간마다 갱신
-@st.cache_data(ttl=18000)
+#캐싱-RM한도증액 가맹점 6시간마다 갱신
+@st.cache_data(ttl=21600)
 def RM():
     RM = pd.read_json('C:\\Users\\USER\\ve_1\\proj_web\\db\\RM_.json',
                       orient='records',
@@ -36,7 +36,7 @@ for i in range(11):
     else:
         pass
 #자동 새로고침 코드
-count = st_autorefresh(interval=2000,
+count = st_autorefresh(interval=3000,
                         limit=None,
                         key="refresh")
 #캐싱데이터 지우기
@@ -50,21 +50,16 @@ def H_page():
         sp("lliilliill")
     if row_.button("DB관리", use_container_width=True):
         sp("iillilill")
-    if row_.button("RM증액 및 공지", use_container_width=True):
+    if row_.button("은행지연/모계좌", use_container_width=True):
         sp("iillliiilll")
-    if count != 0:
-        cul1,cul2 = st.columns(2)
-        with cul1:
-            with st.expander(f"{now} RM 한도 증액 가맹점"):
-                st.dataframe(RM())
-        with cul2:
-            with st.expander("공지"):
-                notice= open("C:\\Users\\USER\\ve_1\\proj_web\\db\\notice.txt",
-                            mode="r",
-                            encoding="utf-8",
-                            closefd=True)
-                st.write(notice.read())
-                notice.close()
+    if count:
+        with st.expander("은행지연/모계좌"):
+            notice= open("C:\\Users\\USER\\ve_1\\proj_web\\db\\notice.txt",
+                        mode="r",
+                        encoding="utf-8",
+                        closefd=True)
+            st.write(notice.read())
+            notice.close()
         st.write(A_df[-1]['Alarm'])
         st.write(A_df[-1]['mid'])
         st.markdown(':blue[**정보**]')
