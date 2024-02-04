@@ -29,9 +29,6 @@ for i in range(11):
 count = st_autorefresh(interval=3000,
                         limit=None,
                         key="refresh")
-#캐싱데이터 지우기
-if datetime.strftime('%H:%M:%S') == '15:00:00':
-    st.cache_data.clear()
 #네비게이터 버튼 'ilillili', 'lliilliill', 'iillilill', 'iillliiilll'
 def H_page():
     row_ = row(4, vertical_align="top")
