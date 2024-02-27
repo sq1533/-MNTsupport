@@ -28,7 +28,7 @@ for i in range(11):
 count = st_autorefresh(interval=3000,
                         limit=None,
                         key="refresh")
-#네비게이터 버튼 'ilillili', 'lliilliill', 'iillilill', 'iillliiilll'
+#네비게이터 버튼 'ilillili', 'lliilliill', 'iillilill'
 def H_page():
     row_ = row(4, vertical_align="top")
     row_.button("모니터링", use_container_width=True)
@@ -36,16 +36,7 @@ def H_page():
         sp("lliilliill")
     if row_.button("DB관리", use_container_width=True):
         sp("iillilill")
-    if row_.button("은행지연/모계좌", use_container_width=True):
-        sp("iillliiilll")
     if count:
-        with st.expander("은행지연/모계좌"):
-            notice= open("C:\\Users\\USER\\ve_1\\proj_web\\db\\notice.txt",
-                        mode="r",
-                        encoding="utf-8",
-                        closefd=True)
-            st.write(notice.read())
-            notice.close()
         st.write(A_df[-1]['Alarm'])
         st.write(A_df[-1]['mid'])
         st.markdown(':blue[**정보**]')
