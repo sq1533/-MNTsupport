@@ -12,7 +12,7 @@ st.markdown(css, unsafe_allow_html=True)
 with open('C:\\Users\\USER\\ve_1\\proj_web\\db\\info_.json','r',encoding="UTF-8") as f:
     DF = json.load(f)
 #네비게이터 버튼 'ilillili', 'lliilliill', 'iillilill'
-row_ = row(4, vertical_align="top")
+row_ = row(3, vertical_align="top")
 if row_.button("모니터링", use_container_width=True):
     sp("IlIllIlI")
 row_.button("조회", use_container_width=True)

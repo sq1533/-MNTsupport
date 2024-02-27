@@ -30,7 +30,7 @@ count = st_autorefresh(interval=3000,
                         key="refresh")
 #네비게이터 버튼 'ilillili', 'lliilliill', 'iillilill'
 def H_page():
-    row_ = row(4, vertical_align="top")
+    row_ = row(3, vertical_align="top")
     row_.button("모니터링", use_container_width=True)
     if row_.button("조회", use_container_width=True):
         sp("lliilliill")
