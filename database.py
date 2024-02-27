@@ -1,5 +1,4 @@
 import pandas as pd
-from datetime import datetime
 
 def cre(data):
     DF = pd.read_json('C:\\Users\\USER\\ve_1\\proj_web\\db\\info_.json',

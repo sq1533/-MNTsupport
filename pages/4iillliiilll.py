@@ -18,7 +18,7 @@ row_.button("은행지연/모계좌", use_container_width=True)
 
 with st.form(key="은행지연/모계좌"):
     with open("C:\\Users\\USER\\ve_1\\proj_web\\db\\notice.txt","r+",encoding="utf-8") as f:
-        notice: str = st.text_area("내용",value=f.read(),height=500)
+        notice: str = st.text_area("내용",value=f.read().replace("  \n","\n"),height=500)
         if st.form_submit_button("입력"):
             nf = open("C:\\Users\\USER\\ve_1\\proj_web\\db\\notice.txt","w+",encoding="utf-8")
             nf.write(notice.replace("\n","  \n"))
