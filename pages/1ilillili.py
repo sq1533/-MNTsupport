@@ -1,6 +1,5 @@
 import pandas as pd
 import json
-from datetime import datetime
 
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh

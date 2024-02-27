@@ -68,9 +68,9 @@ with tab2:
             pass
         else:
             look2 = [0]
-        mid: str = st.text_input("mid",DF[look2[0]]['mid'],max_chars=20)
-        info: str = st.text_area("정보",DF[look2[0]]['info'],height=250)
-        char: str = st.text_area("담당자",DF[look2[0]]['char'],height=100)
+        mid: str = st.text_input("mid",DF[look2[0]]['mid'].replace("  \n","\n"),max_chars=20)
+        info: str = st.text_area("정보",DF[look2[0]]['info'].replace("  \n","\n"),height=250)
+        char: str = st.text_area("담당자",DF[look2[0]]['char'].replace("  \n","\n"),height=100)
         mk_ch = {
             "mid":mid,
             "info":info.replace('\n','  \n'),
