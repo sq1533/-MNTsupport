@@ -204,6 +204,14 @@ def alarmcheck():
             ad = pd.DataFrame(a,index=[0])
             con = pd.concat([Alarm,ad],ignore_index=True)
             re(con)
+        elif '응답 지연' in AI_alarm:
+            a = {
+                "Alarm":[AI_alarm],
+                "mid":["응답지연"]
+                }
+            ad = pd.DataFrame(a,index=[0])
+            con = pd.concat([Alarm,ad],ignore_index=True)
+            re(con)
         elif '/미처리' in AI_alarm:
             a = {
                 "Alarm":[AI_alarm],
