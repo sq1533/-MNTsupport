@@ -22,7 +22,7 @@ def delete():
     requests.post(url_d,json.dumps(mk_d))
 
 #네비게이터 버튼 'ilillili', 'lliilliill', 'iillilill'
-row_ = row(4, vertical_align="top")
+row_ = row(3, vertical_align="top")
 if row_.button("모니터링", use_container_width=True):
     sp("IlIllIlI")
 if row_.button("조회", use_container_width=True):
